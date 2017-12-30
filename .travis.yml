@@ -1,13 +1,7 @@
-# Travis CI configuration file.
-
-dist: trusty
-
 sudo: false
-
 language: php
-
 php:
-    - 7.1
+  - 7.0.25
 
 services:
     - postgresql
@@ -22,11 +16,10 @@ install:
     - composer install --no-interaction
 
 before_script:
-    - db/create.sh travis
-    - db/load.sh test
+    - db/CrearDB.sh travis
+    - db/Cargar_Datos.sh test
     - tests/download-chromedriver.sh
     - tests/run-acceptance.sh
-    - sleep 3
 
 script:
     - vendor/bin/codecept run
@@ -34,9 +27,3 @@ script:
 
 notifications:
     email: false
-
-# # Cache folder, you can delete cache from Travis CI web interface
-# cache:
-#     directories:
-#         - vendor
-#         - $HOME/.composer/cache
